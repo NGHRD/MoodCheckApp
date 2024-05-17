@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mood_check/pages/login_page.dart';
+import 'package:mood_check/services/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -18,6 +19,8 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController _birthdateController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _passwordCheckController = TextEditingController();
+
+ final _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +101,16 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: const Text('Terug')
                 ),
                 ElevatedButton(
-                    onPressed: () => {},
+                    onPressed: () => {
+                      _auth.register(
+                          _emailController.text,
+                          _firstNameController.text,
+                          _prefixController.text,
+                          _lastNameController.text,
+                          _birthdateController.text,
+                          _passwordController.text
+                      )
+                    },
                     child: const Text('Registreren')
                 )
               ],
