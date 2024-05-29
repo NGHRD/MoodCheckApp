@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_check/pages/register_page.dart';
 import '../services/auth_service.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,9 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login')
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -45,9 +43,9 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 ElevatedButton(
                     onPressed: () => {
-                      _auth.login(_emailController.text, _passwordController.text)
-                      // Navigator.pushReplacement(
-                      //     context, MaterialPageRoute(builder: (context) => HomePage()))
+                      _auth.login(_emailController.text, _passwordController.text),
+                      Navigator.pushReplacement(
+                          context, MaterialPageRoute(builder: (context) => HomePage()))
                     },
                     child: const Text('Inloggen')
                 ),
