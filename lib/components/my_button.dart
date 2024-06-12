@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyButton extends StatelessWidget {
   final String text;
@@ -17,17 +18,17 @@ class MyButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTab,
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.circular(8)
+            color: const Color(0XFFA8CD8A),
+            borderRadius: BorderRadius.circular(30)
         ),
         child: Center(
           child: Text(
             text,
-            style: TextStyle(
-                color: Colors.white,
+            style: GoogleFonts.inika(
+                color: Colors.black45,
                 fontWeight: FontWeight.bold,
                 fontSize: 18
             ),

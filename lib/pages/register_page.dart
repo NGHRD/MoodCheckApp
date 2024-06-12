@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mood_check/components/my_textfield.dart';
 import 'package:mood_check/pages/login_page.dart';
@@ -52,32 +53,42 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final keyboardActive = MediaQuery.of(context).viewInsets.bottom != 0;
+
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            if (!keyboardActive) Text(
+                "Registreren",
+                style: GoogleFonts.inika(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold
+                )
+            ),
+            const SizedBox(height: 40.0),
             MyTextfield(
               controller: _emailController,
               hintText: 'Emailadres',
               obscureText: false,
               readOnly: false,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             MyTextfield(
               controller: _firstNameController,
               hintText: 'Voornaam',
               obscureText: false,
               readOnly: false,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             MyTextfield(
               controller: _lastNameController,
               hintText: 'Achternaam',
               obscureText: false,
               readOnly: false,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             MyTextfield(
               controller: _birthdateController,
               readOnly: true,
@@ -85,14 +96,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 onTab: openCalender,
               obscureText: false,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             MyTextfield(
               controller: _passwordController,
               hintText: 'Wachtwoord',
               obscureText: true,
               readOnly: false,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             MyTextfield(
               controller: _passwordCheckController,
               obscureText: true,
@@ -110,7 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
               children: <Widget>[
                 Text(
                   'Heb je een account?',
-                  style: TextStyle(
+                  style: GoogleFonts.inika(
                       color: Colors.grey[700],
                       fontWeight: FontWeight.bold
                   ),
@@ -121,10 +132,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     Navigator.pushReplacement(
                         context, MaterialPageRoute(builder: (context) => LoginPage()))
                   },
-                  child: const Text(
+                  child: Text(
                     'Inloggen',
-                    style: TextStyle(
-                        color: Colors.blue,
+                    style: GoogleFonts.inika(
+                        color: const Color(0XFF3D7593),
                         fontWeight: FontWeight.bold
                     ),
                   ),

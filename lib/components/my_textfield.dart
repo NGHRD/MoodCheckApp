@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyTextfield extends StatelessWidget {
   final controller;
@@ -26,16 +27,18 @@ class MyTextfield extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)
+            enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Color(0xFFD6CDC8)),
+                borderRadius: BorderRadius.circular(30.0)
             ),
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400)
+                borderSide: const BorderSide(color: Color(0XFF3D7593)),
+                borderRadius: BorderRadius.circular(30.0)
             ),
             filled: true,
             fillColor: Colors.grey.shade200,
             hintText: hintText,
-          hintStyle: TextStyle(
+          hintStyle: GoogleFonts.inika(
             color: Colors.grey[500]
           )
         ),

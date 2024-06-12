@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Mood Check',
       theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xFFD6CDC8),
         useMaterial3: true,
       ),
       home: const LoginPage(),

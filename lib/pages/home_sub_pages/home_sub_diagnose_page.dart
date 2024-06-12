@@ -14,6 +14,7 @@ class _HomeSubDiagnosePageState extends State<HomeSubDiagnosePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0XFFF5F0ED),
       body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

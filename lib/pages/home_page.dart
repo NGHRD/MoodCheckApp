@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:mood_check/pages/home_sub_pages/home_sub_account_page.dart';
 import 'package:mood_check/pages/home_sub_pages/home_sub_diagnose_page.dart';
@@ -35,41 +36,34 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: Container (
-        color: Colors.black,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-          child: GNav(
-            onTabChange: (index) {
-              _navigateBottomBar(index);
-            },
-            backgroundColor: Colors.black,
-            color: Colors.white,
-            activeColor: Colors.white,
-            tabBackgroundColor: Colors.grey.shade800,
-            gap: 8,
-            tabs: const [
-              GButton(
-                padding: EdgeInsets.all(12.0),
-                icon: Icons.monitor_heart_rounded,
-                text: 'Home',
-              ),
-              GButton(
-                padding: EdgeInsets.all(12.0),
-                icon: Icons.date_range_outlined,
-                text: 'Dagboek',
-              ),
-              GButton(
-                  padding: EdgeInsets.all(12.0),
-                  icon: Icons.warning_amber_rounded,
-                  text: 'Direct hulp'
-              ),
-              GButton(
-                  padding: EdgeInsets.all(12.0),
-                  icon: Icons.account_circle_outlined,
-                  text: 'Account'
-              )
-            ],
-          ),
+        color: const Color(0XFFD6CDC8),
+        child: GNav(
+          onTabChange: (index) {
+            _navigateBottomBar(index);
+          },
+          backgroundColor: const Color(0XFFD6CDC8),
+          color: Colors.black,
+          activeColor: Colors.black,
+          tabBackgroundColor: const Color(0XFFFFB99C),
+          iconSize: 35,
+          tabs: [
+            GButton(
+              borderRadius: BorderRadius.circular(0.0),
+              icon: Icons.calendar_month_outlined,
+            ),
+            GButton(
+              borderRadius: BorderRadius.circular(0.0),
+              icon: Icons.ssid_chart_rounded,
+            ),
+            GButton(
+                borderRadius: BorderRadius.circular(0.0),
+                icon: Icons.phone_in_talk_rounded,
+            ),
+            GButton(
+                borderRadius: BorderRadius.circular(0.0),
+                icon: Icons.account_circle_rounded,
+            )
+          ],
         ),
       ),
     );

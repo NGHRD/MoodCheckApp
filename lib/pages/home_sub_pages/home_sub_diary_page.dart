@@ -12,6 +12,7 @@ class _HomeSubDiaryPageState extends State<HomeSubDiaryPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: Color(0XFFF5F0ED),
       body: Center(
         child: Text('Dagboek pagina'),
       ),
