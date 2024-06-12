@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mood_check/components/my_textfield.dart';
-import 'package:mood_check/pages/login_page.dart';
 import 'package:mood_check/services/auth_service.dart';
 
-import '../components/my_button.dart';
+import '../../components/my_button.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final VoidCallback showLoginPage;
+  const RegisterPage({super.key, required this.showLoginPage});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _prefixController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _birthdateController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _passwordCheckController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _prefixController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _birthdateController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordCheckController = TextEditingController();
 
   final _auth = AuthService();
 
@@ -112,7 +112,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             const SizedBox(height: 40),
             MyButton(
-              text: 'Login',
+              text: 'Registreren',
               onTab: registerUser,
             ),
             const SizedBox(height: 15),
@@ -128,10 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(width: 4),
                 GestureDetector(
-                  onTap: () => {
-                    Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => LoginPage()))
-                  },
+                  onTap: widget.showLoginPage,
                   child: Text(
                     'Inloggen',
                     style: GoogleFonts.inika(

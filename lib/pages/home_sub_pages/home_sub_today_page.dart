@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mood_check/pages/auth_pages/auth_page.dart';
 
-import '../login_page.dart';
-
-class HomeSubDiagnosePage extends StatefulWidget {
-  const HomeSubDiagnosePage({super.key});
+class HomeSubTodayPage extends StatefulWidget {
+  const HomeSubTodayPage({super.key});
 
   @override
-  State<HomeSubDiagnosePage> createState() => _HomeSubDiagnosePageState();
+  State<HomeSubTodayPage> createState() => _HomeSubDiagnosePageState();
 }
 
-class _HomeSubDiagnosePageState extends State<HomeSubDiagnosePage> {
+class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +22,7 @@ class _HomeSubDiagnosePageState extends State<HomeSubDiagnosePage> {
               ElevatedButton(
                   onPressed: () => {
                     Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => LoginPage()))
+                        context, MaterialPageRoute(builder: (context) => AuthPage()))
                   },
                   child: const Text('Uitloggen')
               )

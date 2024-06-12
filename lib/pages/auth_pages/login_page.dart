@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mood_check/components/my_button.dart';
 import 'package:mood_check/components/my_textfield.dart';
-import 'package:mood_check/pages/register_page.dart';
-import '../services/auth_service.dart';
-import 'home_page.dart';
+import '../../services/auth_service.dart';
+import '../home_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final VoidCallback showRegisterPage;
+  const LoginPage({super.key, required this.showRegisterPage});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -97,10 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(width: 4),
                 GestureDetector(
-                  onTap: () => {
-                    Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => RegisterPage()))
-                  },
+                 onTap: widget.showRegisterPage,
                   child: Text(
                     'Registreer nu',
                     style: GoogleFonts.inika(

@@ -4,7 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:mood_check/pages/home_sub_pages/home_sub_account_page.dart';
-import 'package:mood_check/pages/home_sub_pages/home_sub_diagnose_page.dart';
+import 'package:mood_check/pages/home_sub_pages/home_sub_today_page.dart';
 import 'package:mood_check/pages/home_sub_pages/home_sub_diary_page.dart';
 import 'package:mood_check/pages/home_sub_pages/home_sub_help_page.dart';
 
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   final List<Widget> _pages = [
-    HomeSubDiagnosePage(),
+    HomeSubTodayPage(),
     HomeSubDiaryPage(),
     HomeSubHelpPage(),
     HomeSubAccountPage()
