@@ -25,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _passwordCheckController = TextEditingController();
 
   final _auth = AuthService();
+  bool _passwordNotEqual = false;
 
   void openCalender() async{
     DateTime? pickedDate = await showDatePicker(
@@ -41,14 +42,32 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void registerUser() {
-    _auth.register(
-      _emailController.text,
-      _firstNameController.text,
-      _prefixController.text,
-      _lastNameController.text,
-      _birthdateController.text,
-      _passwordController.text
-    );
+    if(_passwordController.text == _passwordCheckController.text) {
+      _auth.register(
+          _emailController.text,
+          _firstNameController.text,
+          _prefixController.text,
+          _lastNameController.text,
+          _birthdateController.text,
+          _passwordController.text
+      );
+    } else {
+      setState(() {
+        _passwordNotEqual = true;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _firstNameController.dispose();
+    _prefixController.dispose();
+    _lastNameController.dispose();
+    _birthdateController.dispose();
+    _passwordController.dispose();
+    _passwordCheckController.dispose();
+    super.dispose();
   }
 
   @override
@@ -110,7 +129,14 @@ class _RegisterPageState extends State<RegisterPage> {
               hintText: 'Herhaal wachtwoord',
               readOnly: false,
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 10),
+            if(_passwordNotEqual) Text(
+                'Wachtwoorden komen niet overeen',
+              style: GoogleFonts.inika(
+                color: Colors.red
+              ),
+            ),
+            const SizedBox(height: 30),
             MyButton(
               text: 'Registreren',
               onTab: registerUser,

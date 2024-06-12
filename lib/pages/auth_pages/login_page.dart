@@ -20,12 +20,18 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   final _auth = AuthService();
 
-
   void signUserIn() {
     _auth.login(_emailController.text, _passwordController.text);
     Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => HomePage())
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
