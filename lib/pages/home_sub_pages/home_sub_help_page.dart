@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeSubHelpPage extends StatelessWidget {
-  const HomeSubHelpPage({super.key});
+  const HomeSubHelpPage({Key? key}) : super(key: key);
+
+  final TextStyle linkTextStyle1 = const TextStyle(
+    color: Color(0xFF7D7B79),
+  );
+
+  final TextStyle linkTextStyle2 = const TextStyle(
+    color: Color(0xFF98CC94),
+  );
 
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
@@ -29,7 +37,7 @@ class HomeSubHelpPage extends StatelessWidget {
         title: const Text('Help & Informatie'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(15),
         child: ListView(
           children: [
             Container(
@@ -52,28 +60,6 @@ class HomeSubHelpPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-                  // const SizedBox(height: 20),
-                  // Container(
-                  //   margin: const EdgeInsets.only(bottom: 4),
-                  //   child: const Text(
-                  //     'Denk je aan zelfmoord?',
-                  //     style: TextStyle(fontSize: 18),
-                  //   ),
-                  // ),
-                  // Row(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     const Text('Bel 113'),
-                  //     SizedBox(width: 10),
-                  //     GestureDetector(
-                  //       onTap: () {
-                  //         _launchInBrowser(Uri.parse('https://www.113.nl/chatten'));
-                  //       },
-                  //       child: const Text('Chat via: https://www.113.nl/chatten'),
-                  //     ),
-                  //   ],
-                  // ),
-
                   Container(
                     margin: const EdgeInsets.only(bottom: 4),
                     child: const Text(
@@ -83,20 +69,16 @@ class HomeSubHelpPage extends StatelessWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.only(bottom: 4),
-                    child: const Text(
+                    child: Text(
                       'Bel 113',
-                      style: TextStyle(
-                        color: Color(0xFF7D7B79),
-                      ),
+                      style: linkTextStyle1,
                     ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(left: 50),
-                    child: const Text(
+                    child: Text(
                       'Chat via:',
-                      style: TextStyle(
-                        color: Color(0xFF7D7B79),
-                      ),
+                      style: linkTextStyle1,
                     ),
                   ),
                   Container(
@@ -111,11 +93,9 @@ class HomeSubHelpPage extends StatelessWidget {
                           onTap: () {
                             _launchInBrowser(Uri.parse('https://www.113.nl/chatten'));
                           },
-                          child: const Text(
+                          child: Text(
                             'https://www.113.nl/chatten',
-                            style: TextStyle(
-                              color: Color(0xFF7D7B79),
-                            ),
+                            style: linkTextStyle1,
                           ),
                         ),
                       ],
@@ -147,11 +127,9 @@ class HomeSubHelpPage extends StatelessWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.only(left: 50),
-                    child: const Text(
+                    child: Text(
                       'Chat via:',
-                      style: TextStyle(
-                        color: Color(0xFF7D7B79),
-                      ),
+                      style: linkTextStyle1,
                     ),
                   ),
                   Container(
@@ -166,11 +144,9 @@ class HomeSubHelpPage extends StatelessWidget {
                           onTap: () {
                             _launchInBrowser(Uri.parse('https://deluisterlijn.nl/'));
                           },
-                          child: const Text(
+                          child: Text(
                             'https://deluisterlijn.nl/',
-                            style: TextStyle(
-                              color: Color(0xFF7D7B79),
-                            ),
+                            style: linkTextStyle1,
                           ),
                         ),
                       ],
@@ -179,36 +155,44 @@ class HomeSubHelpPage extends StatelessWidget {
                 ]
               ),
             ),
+            const SizedBox(height: 15),
 
-            const Text('Meer over mentale zorg'),
-            const SizedBox(height: 20),
-            ListTile(
-              title: const Text('Bel 088 0767 000'),
-              onTap: () => _makePhoneCall('31880767000'),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Meer over mentale zorg',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 5),
+
+                  ListTile(
+                    title: Text(
+                      '• https://moetiknaardedokter.nl/klacht/psychische-klachten',
+                      style: linkTextStyle2,
+                    ),
+                    onTap: () => _launchInBrowser(Uri.parse('https://moetiknaardedokter.nl/klacht/psychische-klachten')),
+                  ),
+                  ListTile(
+                    title: Text(
+                      '• https://www.thuisarts.nl/psychische-klachten-bij-volwassene',
+                      style: linkTextStyle2,
+                    ),
+                    onTap: () => _launchInBrowser(Uri.parse('https://www.thuisarts.nl/psychische-klachten-bij-volwassene')),
+                  ),
+                  ListTile(
+                    title: Text(
+                      '• https://www.thuisarts.nl/hulp-bij-psychische-klachten-bij-volwassenen/ik-heb-psychische-klachten-hoe-ga-ik-daar-mee-om',
+                      style: linkTextStyle2,
+                    ),
+                    onTap: () => _launchInBrowser(Uri.parse('https://www.thuisarts.nl/hulp-bij-psychische-klachten-bij-volwassenen/ik-heb-psychische-klachten-hoe-ga-ik-daar-mee-om')),
+                  ),
+                ],
+              ),
             ),
-            ListTile(
-              title: const Text('Chat via: https://deluisterlijn.nl/'),
-              onTap: () => _launchInBrowser(Uri.parse('https://deluisterlijn.nl/')),
-            ),
-            // ListTile(
-            //   title: const Text('Chat via: https://www.113.nl/chatten'),
-            //   onTap: () => _launchInBrowser(Uri.parse('https://www.113.nl/chatten')),
-            // ),
-            ListTile(
-              title: const Text('https://moetiknaardedokter.nl/klacht/psychische-klachten'),
-              onTap: () => _launchInBrowser(Uri.parse('https://moetiknaardedokter.nl/klacht/psychische-klachten')),
-            ),
-            ListTile(
-              title: const Text('https://www.thuisarts.nl/psychische-klachten-bij-volwassene'),
-              onTap: () => _launchInBrowser(Uri.parse('https://www.thuisarts.nl/psychische-klachten-bij-volwassene')),
-            ),
-            ListTile(
-              title: const Text(
-                  'https://www.thuisarts.nl/hulp-bij-psychische-klachten-bij-volwassenen/ik-heb-psychische-klachten-hoe-ga-ik-daar-mee-om'),
-              onTap: () => _launchInBrowser(Uri.parse(
-                  'https://www.thuisarts.nl/hulp-bij-psychische-klachten-bij-volwassenen/ik-heb-psychische-klachten-hoe-ga-ik-daar-mee-om'
-              )),
-            ),
+
           ],
         ),
       ),
