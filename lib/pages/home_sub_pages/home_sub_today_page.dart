@@ -7,6 +7,7 @@ import 'package:mood_check/components/my_radio_list_tile.dart';
 import 'package:mood_check/services/utilities.dart';
 
 import '../../components/my_button.dart';
+import '../../services/auth_service.dart';
 
 class HomeSubTodayPage extends StatefulWidget {
   const HomeSubTodayPage({super.key});
@@ -26,6 +27,8 @@ enum EmotionsEnum {
 
 class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
   final _utilities = Utilities();
+  final _auth = AuthService();
+  final TextEditingController _notesController = TextEditingController();
   EmotionsEnum? _emotion = EmotionsEnum.happy;
   double _dayScore = 7;
 
@@ -39,7 +42,18 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
   };
 
   void save () {
+    _auth.saveDayData(
+        _emotion.toString(),
+        _experience,
+        _dayScore,
+        _notesController.text
+    );
+  }
 
+  @override
+  void dispose() {
+    _notesController.dispose();
+    super.dispose();
   }
 
   @override
@@ -162,7 +176,7 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Welke emotie beschijft jou dag?',
+                    'Wat heb je vandaag ervaren?',
                     style: GoogleFonts.inika(
                         fontSize: 18
                     ),
