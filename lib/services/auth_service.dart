@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthService {
+  
   static const API_IP = '167.99.216.74';
 
   void login(String email, String password) async {
     print('Login function called');
     try {
       print('Try login');
+      
       var url = Uri.https(API_IP, '/login');
       http.Response response = await http.post(
           url,
@@ -38,6 +40,7 @@ class AuthService {
     print('Register function called');
     try {
       print('Try register');
+
       var url = Uri.https(API_IP, '/register');
       http.Response response = await http.post(
           url,
