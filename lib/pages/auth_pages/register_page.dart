@@ -140,6 +140,7 @@ class _RegisterPageState extends State<RegisterPage> {
             MyButton(
               text: 'Registreren',
               onTab: registerUser,
+              color: const Color(0XFFA8CD8A),
             ),
             const SizedBox(height: 15),
             Row(
