@@ -89,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
             MyButton(
               text: 'Login',
               onTab: signUserIn,
+              color: const Color(0XFFA8CD8A),
             ),
             const SizedBox(height: 15),
             Row(

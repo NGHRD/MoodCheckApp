@@ -6,7 +6,7 @@ class AuthService {
     print('Login function called');
     try {
       print('Try login');
-      var url = Uri.https('ipmedth.requestcatcher.com', '/test');
+      var url = Uri.https('167.99.216.74', '/login');
       http.Response response = await http.post(
           url,
           body: {
