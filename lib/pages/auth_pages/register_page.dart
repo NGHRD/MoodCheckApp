@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mood_check/components/my_textfield.dart';
+import 'package:mood_check/pages/auth_pages/auth_page.dart';
 import 'package:mood_check/services/auth_service.dart';
-
 import '../../components/my_button.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -17,15 +17,14 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _prefixController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _birthdateController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordCheckController = TextEditingController();
 
   final _auth = AuthService();
   bool _passwordNotEqual = false;
+  bool _wrongRegister = false;
 
   void openCalender() async{
     DateTime? pickedDate = await showDatePicker(
@@ -41,16 +40,18 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  void registerUser() {
+  Future<void> registerUser() async{
+
     if(_passwordController.text == _passwordCheckController.text) {
-      _auth.register(
-          _emailController.text,
-          _firstNameController.text,
-          _prefixController.text,
-          _lastNameController.text,
-          _birthdateController.text,
-          _passwordController.text
-      );
+      if(await _auth.register(_emailController.text, _usernameController.text, _birthdateController.text, _passwordController.text)) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => AuthPage())
+        );
+      } else {
+        setState(() {
+          _wrongRegister = true;
+        });
+      }
     } else {
       setState(() {
         _passwordNotEqual = true;
@@ -61,9 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void dispose() {
     _emailController.dispose();
-    _firstNameController.dispose();
-    _prefixController.dispose();
-    _lastNameController.dispose();
+    _usernameController.dispose();
     _birthdateController.dispose();
     _passwordController.dispose();
     _passwordCheckController.dispose();
@@ -95,18 +94,12 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             const SizedBox(height: 10),
             MyTextfield(
-              controller: _firstNameController,
-              hintText: 'Voornaam',
+              controller: _usernameController,
+              hintText: 'Gebruikersnaam',
               obscureText: false,
               readOnly: false,
             ),
             const SizedBox(height: 10),
-            MyTextfield(
-              controller: _lastNameController,
-              hintText: 'Achternaam',
-              obscureText: false,
-              readOnly: false,
-            ),
             const SizedBox(height: 10),
             MyTextfield(
               controller: _birthdateController,
@@ -134,6 +127,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 'Wachtwoorden komen niet overeen',
               style: GoogleFonts.inika(
                 color: Colors.red
+              ),
+            ),
+            if(_wrongRegister) Text(
+              'Er is iets mis gegaan, probeer het opnieuw',
+              style: GoogleFonts.inika(
+                  color: Colors.red
               ),
             ),
             const SizedBox(height: 30),

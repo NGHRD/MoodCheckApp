@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:mood_check/pages/auth_pages/register_page.dart';
+import 'package:mood_check/pages/home_page.dart';
 
 import 'login_page.dart';
 
@@ -10,7 +12,9 @@ class AuthPage extends StatefulWidget {
   State<AuthPage> createState() => _AuthPageState();
 }
 
+
 class _AuthPageState extends State<AuthPage> {
+  final box = GetStorage();
   bool showLoginPage = true;
 
   void toggleScreens() {
@@ -21,10 +25,14 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    if(showLoginPage) {
-      return LoginPage(showRegisterPage: toggleScreens);
+    if(box.read('token') != null) {
+      return HomePage();
     } else {
-      return RegisterPage(showLoginPage: toggleScreens);
+      if(showLoginPage) {
+        return LoginPage(showRegisterPage: toggleScreens);
+      } else {
+        return RegisterPage(showLoginPage: toggleScreens);
+      }
     }
   }
 }

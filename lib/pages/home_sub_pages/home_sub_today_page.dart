@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mood_check/components/my_checkbox_tile.dart';
 import 'package:mood_check/components/my_radio_list_tile.dart';
@@ -25,10 +26,14 @@ enum EmotionsEnum {
   amazed
 }
 
+final box = GetStorage();
+
+
 class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
   final _utilities = Utilities();
   final _auth = AuthService();
   final TextEditingController _notesController = TextEditingController();
+  final String username = box.read('username');
   EmotionsEnum? _emotion = EmotionsEnum.happy;
   double _dayScore = 7;
 
@@ -43,6 +48,7 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
 
   void save () {
     _auth.saveDayData(
+        DateTime.now() as String,
         _emotion.toString(),
         _experience,
         _dayScore,
@@ -89,7 +95,7 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Hé ...., hoe ging het vandaag?',
+                    'Hé ${username}, hoe ging het vandaag?',
                     style: GoogleFonts.inika(
                       fontSize: 22
                     ),

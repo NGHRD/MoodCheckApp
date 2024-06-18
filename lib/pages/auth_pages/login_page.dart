@@ -19,12 +19,18 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _auth = AuthService();
+  bool _wrongCredentials = false;
 
-  void signUserIn() {
-    _auth.login(_emailController.text, _passwordController.text);
-    Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => HomePage())
-    );
+  Future<void> signUserIn() async {
+    if(await _auth.login(_emailController.text, _passwordController.text)) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomePage())
+      );
+    } else {
+      setState(() {
+        _wrongCredentials = true;
+      });
+    }
   }
 
   @override
@@ -72,19 +78,26 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
                 readOnly: false,
             ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      'Wachtwoord vergeten?',
-                      style: GoogleFonts.inika(color: Colors.grey[600]),
-                    ),
-                  ]
+            const SizedBox(height: 10),
+            if(_wrongCredentials) Text(
+              'Email en wachtwoord komen niet overeen',
+              style: GoogleFonts.inika(
+                  color: Colors.red
               ),
             ),
+            const SizedBox(height: 10),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            //   child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.end,
+            //       children: <Widget>[
+            //         Text(
+            //           'Wachtwoord vergeten?',
+            //           style: GoogleFonts.inika(color: Colors.grey[600]),
+            //         ),
+            //       ]
+            //   ),
+            // ),
             const SizedBox(height: 40),
             MyButton(
               text: 'Login',
