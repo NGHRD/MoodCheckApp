@@ -15,7 +15,7 @@ class HomeSubAccountPageState extends State<HomeSubAccountPage> {
   String name = '';
   String birthdate = '';
   String gender = '';
-  bool isLoading = true;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -62,7 +62,7 @@ class HomeSubAccountPageState extends State<HomeSubAccountPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F0ED),
       appBar: AppBar(
-        title: const Text('Account Page'),
+        title: const Text('Account'),
       ),
       body: Center(
         child: Padding(
@@ -94,22 +94,22 @@ class HomeSubAccountPageState extends State<HomeSubAccountPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildInfoField('Name', name),
+                    buildInfoField('Naam', name),
                     const Divider(color: Colors.black),
-                    buildInfoField('Birthdate', birthdate),
+                    buildInfoField('Geboortedatum', birthdate),
                     const Divider(color: Colors.black),
-                    buildInfoField('Gender', gender),
+                    buildInfoField('Geslacht', gender),
                     const Divider(color: Colors.black),
-                    buildInfoField('Username', username),
+                    buildInfoField('Gebruikersnaam', username),
                     const Divider(color: Colors.black),
-                    buildInfoField('Email', email),
+                    buildInfoField('E-mail', email),
                   ],
                 ),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: logout,
-                child: const Text('Logout'),
+                child: const Text('Uitloggen'),
               ),
             ],
           ),
