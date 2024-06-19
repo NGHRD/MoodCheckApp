@@ -22,6 +22,7 @@ class AuthService {
       if(response.statusCode == 200) {
         LoginResponse loginResponse = LoginResponse.fromJson(jsonDecode(response.body));
         box.write('username', loginResponse.user.name);
+        box.write('email', loginResponse.user.email);
         box.write('token', loginResponse.token);
         return true;
       } else {

@@ -4,7 +4,8 @@ import 'package:mood_check/pages/auth_pages/auth_page.dart';
 
 void main() async {
   await GetStorage.init();
-  runApp(const MyApp());
+  runApp(const MyApp(
+  ));
 }
 
 class MyApp extends StatelessWidget {

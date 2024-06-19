@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:mood_check/pages/auth_pages/login_page.dart';
 import 'dart:convert';
 
 class HomeSubAccountPage extends StatefulWidget {
@@ -16,7 +18,7 @@ class HomeSubAccountPageState extends State<HomeSubAccountPage> {
   String name = '';
   String birthdate = '';
   String gender = '';
-  bool isLoading = false;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -25,16 +27,15 @@ class HomeSubAccountPageState extends State<HomeSubAccountPage> {
   }
 
   Future<void> fetchUserInfo() async {
-    final response = await http.get(Uri.parse('https://example.com/api/userinfo')); // Replace with your API endpoint
+    final box = GetStorage();
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+    username = box.read('username');
+    email = box.read('email');
+
+    if (isLoading = true) {
       setState(() {
-        username = data['username'];
-        email = data['email'];
-        name = data['name'];
-        birthdate = data['birthdate'];
-        gender = data['gender'];
+        username = box.read('username');
+        email = box.read('email');
         isLoading = false;
       });
     } else {
@@ -45,7 +46,16 @@ class HomeSubAccountPageState extends State<HomeSubAccountPage> {
   }
 
   void logout() {
-    Navigator.pop(context);
+    final box = GetStorage();
+    box.remove('username');
+    box.remove('email');
+    box.remove('token');
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage(showRegisterPage: () {})),
+    );
+
   }
 
   Widget buildInfoField(String label, String value) {
@@ -80,49 +90,45 @@ class HomeSubAccountPageState extends State<HomeSubAccountPage> {
           padding: const EdgeInsets.all(25),
           child: isLoading
               ? const Center(child: CircularProgressIndicator())
-              : Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Center(
-                child: CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.grey.shade300,
-                  child: Icon(
-                    Icons.person,
-                    size: 50,
-                    color: Colors.grey.shade800,
+              : SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Center(
+                  child: CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.grey.shade300,
+                    child: Icon(
+                      Icons.person,
+                      size: 50,
+                      color: Colors.grey.shade800,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 40),
-              Container(
-                width: 400,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
+                const SizedBox(height: 40),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      buildInfoField('Gebruikersnaam', username),
+                      const Divider(color: Colors.black),
+                      buildInfoField('E-mail', email),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildInfoField('Naam', name),
-                    const Divider(color: Colors.black),
-                    buildInfoField('Geboortedatum', birthdate),
-                    const Divider(color: Colors.black),
-                    buildInfoField('Geslacht', gender),
-                    const Divider(color: Colors.black),
-                    buildInfoField('Gebruikersnaam', username),
-                    const Divider(color: Colors.black),
-                    buildInfoField('E-mail', email),
-                  ],
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: logout,
+                  child: const Text('Uitloggen'),
                 ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: logout,
-                child: const Text('Uitloggen'),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
