@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -52,7 +53,9 @@ class HomeSubAccountPageState extends State<HomeSubAccountPage> {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Text(
         '$label: $value',
-        style: const TextStyle(fontSize: 18),
+        style: GoogleFonts.inika(
+          fontSize: 18,
+        ),
       ),
     );
   }
@@ -62,7 +65,15 @@ class HomeSubAccountPageState extends State<HomeSubAccountPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F0ED),
       appBar: AppBar(
-        title: const Text('Account'),
+        backgroundColor: const Color(0xFFD6CDC8),
+        title: Center(
+          child: Text(
+            "Moodcheck",
+            style: GoogleFonts.inika(
+                fontSize: 20
+            ),
+          ),
+        ),
       ),
       body: Center(
         child: Padding(

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeSubHelpPage extends StatelessWidget {
-  const HomeSubHelpPage({Key? key}) : super(key: key);
+  HomeSubHelpPage({Key? key}) : super(key: key);
 
-  final TextStyle linkTextStyle1 = const TextStyle(
-    color: Color(0xFF7D7B79),
+  final TextStyle linkTextStyle1 = GoogleFonts.inika(
+    fontSize: 18,
+    color: const Color(0xFF7D7B79),
   );
 
-  final TextStyle linkTextStyle2 = const TextStyle(
-    color: Color(0xFF98CC94),
+  final TextStyle linkTextStyle2 = GoogleFonts.inika(
+    fontSize: 18,
+    color: const Color(0xFF4CC246),
   );
 
   Future<void> _launchInBrowser(Uri url) async {
@@ -34,7 +37,15 @@ class HomeSubHelpPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0XFFF5F0ED),
       appBar: AppBar(
-        title: const Text('Help & Informatie'),
+        backgroundColor: const Color(0xFFD6CDC8),
+        title: Center(
+          child: Text(
+            "Moodcheck",
+            style: GoogleFonts.inika(
+                fontSize: 20
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -47,24 +58,29 @@ class HomeSubHelpPage extends StatelessWidget {
                 children: [
                   Container(
                     margin: const EdgeInsets.only(bottom: 4),
-                    child: const Text(
+                    child: Text(
                       'Voor levensbedreigende situaties',
-                      style: TextStyle(fontSize: 18),
+                      style: GoogleFonts.inika(
+                          fontSize: 18
+                      ),
                     ),
                   ),
-                  const Text(
+                  Text(
                     'Bel 112',
-                    style: TextStyle(
-                      color: Color(0xFFEE7179),
+                    style: GoogleFonts.inika(
+                        color: const Color(0xFFEE7179),
+                        fontSize: 18
                     ),
                   ),
                   const SizedBox(height: 15),
 
                   Container(
                     margin: const EdgeInsets.only(bottom: 4),
-                    child: const Text(
+                    child: Text(
                       'Denk je aan zelfmoord?',
-                      style: TextStyle(fontSize: 18),
+                      style: GoogleFonts.inika(
+                          fontSize: 18
+                      ),
                     ),
                   ),
                   Container(
@@ -105,9 +121,11 @@ class HomeSubHelpPage extends StatelessWidget {
 
                   Container(
                     margin: const EdgeInsets.only(bottom: 4),
-                    child: const Text(
+                    child: Text(
                       'Een luisterend oor?',
-                      style: TextStyle(fontSize: 18),
+                      style: GoogleFonts.inika(
+                          fontSize: 18
+                      ),
                     ),
                   ),
                   Container(
@@ -116,10 +134,11 @@ class HomeSubHelpPage extends StatelessWidget {
                       onTap: () {
                         _makePhoneCall('31880767000');
                       },
-                      child: const Text(
+                      child: Text(
                         'Bel 088 0767 000',
-                        style: TextStyle(
-                          color: Color(0xFF7D7B79),
+                        style: GoogleFonts.inika(
+                          color: const Color(0xFF7D7B79),
+                          fontSize: 18,
                           decoration: TextDecoration.underline,
                         ),
                       ),
@@ -162,9 +181,11 @@ class HomeSubHelpPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Meer over mentale zorg',
-                    style: TextStyle(fontSize: 18),
+                    style: GoogleFonts.inika(
+                        fontSize: 18
+                    ),
                   ),
                   const SizedBox(height: 5),
 
