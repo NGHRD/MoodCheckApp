@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:mood_check/pages/auth_pages/login_page.dart';
+  import 'package:mood_check/pages/auth_pages/login_page.dart';
 
 class HomeSubAccountPage extends StatefulWidget {
   const HomeSubAccountPage({super.key});

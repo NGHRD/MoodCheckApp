@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:mood_check/services/utilities.dart';
 
 class AuthService {
   final box = GetStorage();
@@ -156,6 +157,57 @@ class AuthService {
     }
 
     return dayScores;
+  }
+
+  Future<Map<DateTime, List<Note>>> getNotes(String date) async {
+    try {
+      var url = Uri.http(API_IP, '/api/data/by-date');
+      var body = jsonEncode({
+        'name': box.read('username'),
+        'date': date
+      });
+
+      http.Response response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        var parsedResponse = jsonDecode(response.body);
+
+        if (parsedResponse.containsKey('data') && parsedResponse['data'] is List) {
+          var data = List<Map<String, dynamic>>.from(parsedResponse['data']);
+          return processNotes(data);
+        } else {
+          print('Invalid data format received from API');
+          return {};
+        }
+      } else {
+        print('Failed to get data, status code: ${response.statusCode}');
+        return {};
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
+      return {};
+    }
+  }
+
+  Map<DateTime, List<Note>> processNotes(List<Map<String, dynamic>> data) {
+    Map<DateTime, List<Note>> notesMap = {};
+
+    for (var entry in data) {
+      DateTime date = DateTime.parse(entry['date']);
+      String? noteText = entry['notes'];
+
+      if (noteText != null && noteText.isNotEmpty) {
+        DateTime dayKey = DateTime(date.year, date.month, date.day);
+        notesMap.putIfAbsent(dayKey, () => []);
+        notesMap[dayKey]!.add(Note(noteText));
+      }
+    }
+
+    return notesMap;
   }
 }
 

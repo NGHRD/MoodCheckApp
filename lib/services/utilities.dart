@@ -1,5 +1,8 @@
 import 'dart:collection';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import 'auth_service.dart';
 
 class Utilities {
   String getCurrentDate() {
@@ -50,11 +53,7 @@ final kNotes = LinkedHashMap<DateTime, List<Note>>(
   hashCode: getHashCode,
 )..addAll(_kNoteSource);
 
-final Map<DateTime, List<Note>> _kNoteSource = {
-  DateTime.now(): [
-    Note('Dit is een voorbeeld van een notitie die is aangemaakt'),
-  ],
-};
+final Map<DateTime, List<Note>> _kNoteSource = {};
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
@@ -66,6 +65,13 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
     dayCount,
         (index) => DateTime.utc(first.year, first.month, first.day + index),
   );
+}
+
+final _auth = AuthService();
+Future<void> updateNotes() async {
+  final notes = await _auth.getNotes(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+  _kNoteSource.clear();
+  _kNoteSource.addAll(notes);
 }
 
 final kToday = DateTime.now();

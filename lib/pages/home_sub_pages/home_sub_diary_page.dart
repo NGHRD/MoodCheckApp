@@ -30,9 +30,11 @@ class _HomeSubDiaryPage extends State<HomeSubDiaryPage> {
     )
   ];
 
+
+  @override
   void initState() {
     super.initState();
-    _loadData(); // Call a separate function to fetch data
+    _loadData();
 
     _selectedDay = _focusedDay;
     _selectedNotes = ValueNotifier(_getNotesForDay(_selectedDay!));
@@ -40,8 +42,10 @@ class _HomeSubDiaryPage extends State<HomeSubDiaryPage> {
 
   void _loadData() async {
     final dayScores = await _auth.getDayScores();
+    await updateNotes();
     setState(() {
       features[0].data = dayScores;
+      _selectedNotes.value = _getNotesForDay(_selectedDay!);
     });
   }
 
