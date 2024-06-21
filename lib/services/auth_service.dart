@@ -71,7 +71,7 @@ class AuthService {
   void saveDayData(
       String date,
       String emotion,
-      Map<String, bool> experienced,
+      Map<String, dynamic> experienced,
       double dayScore,
       String notes
       ) async {

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
 import 'package:mood_check/pages/auth_pages/login_page.dart';
-import 'dart:convert';
 
 class HomeSubAccountPage extends StatefulWidget {
   const HomeSubAccountPage({super.key});
@@ -50,6 +48,8 @@ class HomeSubAccountPageState extends State<HomeSubAccountPage> {
     box.remove('username');
     box.remove('email');
     box.remove('token');
+    box.erase();
+
 
     Navigator.pushReplacement(
       context,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -17,15 +19,6 @@ class HomeSubTodayPage extends StatefulWidget {
   State<HomeSubTodayPage> createState() => _HomeSubDiagnosePageState();
 }
 
-enum EmotionsEnum {
-  happy,
-  angry,
-  sad,
-  anxious,
-  disgust,
-  amazed
-}
-
 final box = GetStorage();
 
 
@@ -34,10 +27,10 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
   final _auth = AuthService();
   final TextEditingController _notesController = TextEditingController();
   final String username = box.read('username');
-  EmotionsEnum? _emotion = EmotionsEnum.happy;
+  String _emotion = "happy";
   double _dayScore = 7;
 
-  final Map<String, bool> _experience = {
+  Map<String, dynamic> _experience = {
     'sleepProblems': false,
     'tiredness': false,
     'concentrationProblems': false,
@@ -47,6 +40,10 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
   };
 
   void save () {
+    box.write('emotion', _emotion);
+    box.write('experience', jsonEncode(_experience));
+    box.write('dayScore', _dayScore);
+    box.write('notes', _notesController.text);
     _auth.saveDayData(
         DateTime.now().toString(),
         _emotion.toString(),
@@ -54,6 +51,23 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
         _dayScore,
         _notesController.text
     );
+  }
+
+  @override
+  void initState() {
+    if(box.read('emotion') != null) {
+      _emotion =  box.read('emotion');
+    }
+    if(box.read('experience') != null) {
+      _experience =  jsonDecode(box.read('experience'));
+    }
+    if(box.read('dayScore') != null) {
+      _dayScore =  box.read('dayScore');
+    }
+    if(box.read('notes') != null) {
+      _notesController.text =  box.read('notes');
+    }
+    super.initState();
   }
 
   @override
@@ -114,9 +128,9 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
                         children: <Widget>[
                           MyRadioListTile(
                             text: "Blij",
-                            value: EmotionsEnum.happy,
+                            value: "happy",
                             groupValue: _emotion,
-                            onChanged: (EmotionsEnum? value) {
+                            onChanged: (value) {
                               setState(() {
                                 _emotion = value;
                               });
@@ -124,9 +138,9 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
                           ),
                           MyRadioListTile(
                             text: "Boos",
-                            value: EmotionsEnum.angry,
+                            value: "angry",
                             groupValue: _emotion,
-                            onChanged: (EmotionsEnum? value) {
+                            onChanged: (value) {
                               setState(() {
                                 _emotion = value;
                               });
@@ -134,9 +148,9 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
                           ),
                           MyRadioListTile(
                             text: "Verdrietig",
-                            value: EmotionsEnum.sad,
+                            value: "sad",
                             groupValue: _emotion,
-                            onChanged: (EmotionsEnum? value) {
+                            onChanged: (value) {
                               setState(() {
                                 _emotion = value;
                               });
@@ -148,9 +162,9 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
                         children: <Widget>[
                           MyRadioListTile(
                             text: "Angstig",
-                            value: EmotionsEnum.anxious,
+                            value: "anxious",
                             groupValue: _emotion,
-                            onChanged: (EmotionsEnum? value) {
+                            onChanged: (value) {
                               setState(() {
                                 _emotion = value;
                               });
@@ -158,9 +172,9 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
                           ),
                           MyRadioListTile(
                             text: "Afschuw",
-                            value: EmotionsEnum.disgust,
+                            value: "disgust",
                             groupValue: _emotion,
-                            onChanged: (EmotionsEnum? value) {
+                            onChanged: (value) {
                               setState(() {
                                 _emotion = value;
                               });
@@ -168,9 +182,9 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
                           ),
                           MyRadioListTile(
                             text: "Verbaasd",
-                            value: EmotionsEnum.amazed,
+                            value: "amazed",
                             groupValue: _emotion,
-                            onChanged: (EmotionsEnum? value) {
+                            onChanged: (value) {
                               setState(() {
                                 _emotion = value;
                               });

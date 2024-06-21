@@ -17,6 +17,12 @@ class _AuthPageState extends State<AuthPage> {
   final box = GetStorage();
   bool showLoginPage = true;
 
+  @override
+  void initState() {
+    box.erase();
+    super.initState();
+  }
+
   void toggleScreens() {
     setState(() {
       showLoginPage = !showLoginPage;
