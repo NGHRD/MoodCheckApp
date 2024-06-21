@@ -48,7 +48,7 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
 
   void save () {
     _auth.saveDayData(
-        DateTime.now() as String,
+        DateTime.now().toString(),
         _emotion.toString(),
         _experience,
         _dayScore,
@@ -285,6 +285,7 @@ class _HomeSubDiagnosePageState extends State<HomeSubTodayPage> {
                     child: Container(
                       color: Colors.white,
                       child: TextFormField(
+                        controller: _notesController,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         minLines: 10,

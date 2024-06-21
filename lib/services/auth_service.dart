@@ -81,6 +81,7 @@ class AuthService {
       var url = Uri.http(API_IP, '/api/data');
       var body = jsonEncode({
         'date': date,
+        'name': box.read('username'),
         'emotion': emotion,
         'experienced': jsonEncode(experienced),
         'dayScore': dayScore.toString(),
