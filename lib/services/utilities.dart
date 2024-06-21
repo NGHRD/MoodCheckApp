@@ -1,7 +1,4 @@
 import 'dart:collection';
-import 'dart:ui';
-
-import 'package:draw_graph/models/feature.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Utilities {
@@ -74,11 +71,3 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
 final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
-
-final List<Feature> features = [
-  Feature(
-    title: "Dagelijkse score",
-    color: const Color(0XFFFFB99C),
-    data: [0.4, 0.5, 0.2, 0.7, 0.9],
-  )
-];

@@ -1,7 +1,9 @@
 import 'package:draw_graph/draw_graph.dart';
+import 'package:draw_graph/models/feature.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../services/auth_service.dart';
 import '../../services/utilities.dart';
 
 class HomeSubDiaryPage extends StatefulWidget {
@@ -10,6 +12,7 @@ class HomeSubDiaryPage extends StatefulWidget {
 }
 
 class _HomeSubDiaryPage extends State<HomeSubDiaryPage> {
+  final _auth = AuthService();
   late final ValueNotifier<List<Note>> _selectedNotes;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
@@ -19,12 +22,27 @@ class _HomeSubDiaryPage extends State<HomeSubDiaryPage> {
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
 
-  @override
+  final List<Feature> features = [
+    Feature(
+      title: "Dagelijkse score",
+      color: const Color(0XFFFFB99C),
+      data: [0.0, 0.0, 0.0, 0.0, 0.0],
+    )
+  ];
+
   void initState() {
     super.initState();
+    _loadData(); // Call a separate function to fetch data
 
     _selectedDay = _focusedDay;
     _selectedNotes = ValueNotifier(_getNotesForDay(_selectedDay!));
+  }
+
+  void _loadData() async {
+    final dayScores = await _auth.getDayScores();
+    setState(() {
+      features[0].data = dayScores;
+    });
   }
 
   @override

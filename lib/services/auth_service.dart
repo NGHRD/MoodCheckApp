@@ -10,7 +10,7 @@ class AuthService {
     print('Login function called');
     try {
       print('Try login');
-      
+
       var url = Uri.http(API_IP, '/api/login');
       http.Response response = await http.post(
           url,
@@ -19,8 +19,9 @@ class AuthService {
             'password': password
           });
 
-      if(response.statusCode == 200) {
-        LoginResponse loginResponse = LoginResponse.fromJson(jsonDecode(response.body));
+      if (response.statusCode == 200) {
+        LoginResponse loginResponse = LoginResponse.fromJson(
+            jsonDecode(response.body));
         box.write('username', loginResponse.user.name);
         box.write('email', loginResponse.user.email);
         box.write('token', loginResponse.token);
@@ -28,18 +29,16 @@ class AuthService {
       } else {
         return false;
       }
-    } catch(e) {
+    } catch (e) {
       print(e.toString());
       return false;
     }
   }
 
-  Future<bool> register(
-      String email,
+  Future<bool> register(String email,
       String username,
       String birthDate,
-      String password
-      ) async {
+      String password) async {
     print('Register function called');
     try {
       print('Try register');
@@ -58,23 +57,21 @@ class AuthService {
 
       print('wat');
 
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         return true;
       } else {
         return false;
       }
-    } catch(e) {
+    } catch (e) {
       return false;
     }
   }
 
-  void saveDayData(
-      String date,
+  void saveDayData(String date,
       String emotion,
       Map<String, dynamic> experienced,
       double dayScore,
-      String notes
-      ) async {
+      String notes) async {
     print('saveDayData function called');
     try {
       print('Try save day data');
@@ -95,16 +92,70 @@ class AuthService {
         body: body,
       );
 
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         print('saved successful');
       } else {
         print('save failed');
       }
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
-    } catch(e) {
+    } catch (e) {
       print(e.toString());
     }
+  }
+
+  Future<List<double>> getDayScores() async {
+    try {
+      print('Try get day scores');
+      var url = Uri.http(API_IP, '/api/data/last-five-days');
+      var body = jsonEncode({
+        'name': box.read('username')
+      });
+
+      http.Response response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        print('get successful');
+        var parsedResponse = jsonDecode(response.body);
+        var data = List<Map<String, dynamic>>.from(parsedResponse['data']);
+        return getLastFiveDaysScores(data);
+      } else {
+        print('get failed');
+        return [0.0, 0.0, 0.0, 0.0, 0.0];
+      }
+    } catch (e) {
+      print(e.toString());
+      return [0.0, 0.0, 0.0, 0.0, 0.0];
+    }
+  }
+
+  List<double> getLastFiveDaysScores(List<Map<String, dynamic>> data) {
+    Map<String, double> dayScoresMap = {};
+    Map<String, DateTime> dayTimesMap = {};
+
+    for (var entry in data) {
+      DateTime date = DateTime.parse(entry['date']);
+      String dayKey = date.toIso8601String().split('T').first;
+
+      if (!dayTimesMap.containsKey(dayKey) || date.isAfter(dayTimesMap[dayKey]!)) {
+        dayTimesMap[dayKey] = date;
+        dayScoresMap[dayKey] = entry['dayScore'].toDouble() / 10;
+      }
+    }
+
+    List<double> dayScores = [];
+    DateTime today = DateTime.now();
+    for (int i = 4; i >= 0; i--) {
+      DateTime day = today.subtract(Duration(days: i));
+      String dayKey = day.toIso8601String().split('T').first;
+      dayScores.add(dayScoresMap[dayKey] ?? 0.0);
+    }
+
+    return dayScores;
   }
 }
 
