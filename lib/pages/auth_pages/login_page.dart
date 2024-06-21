@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
             if (!keyboardActive) Image.asset("assets/images/moodcheck_logo.png"),
             const SizedBox(height: 20.0),
             Text(
-                "MindCheck",
+                "MoodCheck",
                 style: GoogleFonts.inika(
                     fontSize: 45,
                     fontWeight: FontWeight.bold
